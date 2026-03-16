@@ -1,0 +1,1211 @@
+/* =============================================================
+   WEDDING INVITATION  —  style.css
+   =============================================================
+   Colour palette
+   --cream   #fdf6ec   main background
+   --gold    #c9a84c   primary accent
+   --gold-dk #9a7a2a   dark gold (headings)
+   --gold-lt #e8d5a3   light gold (borders, halos)
+   --pink    #f2b5c8   soft pink accent
+   --pink-lt #fce4ec   lightest pink
+   --brown   #7a5c3a   door wood (dark)
+   --brown-md #a07840  door wood (mid)
+   --brown-lt #c8945a  door wood (light)
+   --text-dk  #3a2a1a  main text
+   --text-md  #6a4a2a  secondary text
+   ============================================================= */
+
+/* ─────────────────────────────────────────────
+   CSS CUSTOM PROPERTIES
+   ───────────────────────────────────────────── */
+:root {
+  --cream:     #fdf6ec;
+  --cream-dk:  #f5e6d0;
+  --gold:      #c9a84c;
+  --gold-dk:   #9a7a2a;
+  --gold-lt:   #e8d5a3;
+  --gold-glow: rgba(201, 168, 76, 0.25);
+  --pink:      #f2b5c8;
+  --pink-lt:   #fce4ec;
+  --brown:     #7a5c3a;
+  --brown-md:  #a07840;
+  --brown-lt:  #c8945a;
+  --text-dk:   #3a2a1a;
+  --text-md:   #6a4a2a;
+  --shadow-sm: 0 2px 12px rgba(122, 92, 58, 0.14);
+  --shadow-md: 0 6px 28px rgba(122, 92, 58, 0.18);
+  --shadow-lg: 0 12px 48px rgba(122, 92, 58, 0.22);
+  --radius:    10px;
+  --ease-door: cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+/* ─────────────────────────────────────────────
+   RESET & BASE
+   ───────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--cream);
+  color: var(--text-dk);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  line-height: 1.6;
+  overflow: hidden;          /* scroll is controlled by .scroll-container */
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ─────────────────────────────────────────────
+   SCROLL CONTAINER  (full-page scroll snap)
+   ───────────────────────────────────────────── */
+.scroll-container {
+  width: 100%;
+  height: 100dvh;            /* dynamic viewport height for mobile browsers */
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  /* hide browser scrollbar but keep functionality */
+  scrollbar-width: none;
+}
+.scroll-container::-webkit-scrollbar { display: none; }
+
+/* Temporarily disable snap while door animation runs */
+.scroll-container.no-snap {
+  scroll-snap-type: none;
+}
+
+/* ─────────────────────────────────────────────
+   SECTION  (each "page")
+   ───────────────────────────────────────────── */
+.section {
+  width: 100%;
+  height: 100dvh;
+  min-height: 100dvh;
+  position: relative;
+  overflow: hidden;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* =============================================================
+   PAGE 1 — DOOR SECTION
+   ============================================================= */
+
+#section-door {
+  background: radial-gradient(
+    ellipse 80% 70% at 50% 40%,
+    #fffcf2 0%,
+    #fdf0d0 45%,
+    #f5ddb0 100%
+  );
+}
+
+/* ── Door Stage (column wrapper: photo + door) ─── */
+.door-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* ── Round photo above the door ─────────────────── */
+.door-top-photo-frame {
+  position: relative;
+  width:  clamp(80px, 14vw, 140px);
+  height: clamp(80px, 14vw, 140px);
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--gold);
+  box-shadow:
+    0 0 0 5px rgba(201, 168, 76, 0.18),
+    0 0 0 10px rgba(201, 168, 76, 0.07),
+    var(--shadow-md);
+  background: var(--cream);
+  margin-bottom: 0.55rem;
+  z-index: 35;
+  flex-shrink: 0;
+}
+
+.door-top-photo {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.door-top-photo-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(2rem, 5vw, 3rem);
+  z-index: 0;
+}
+
+/* ── Floral Arch over the Door ──────────────── */
+/* flower.png sits inside .door-frame, centred, wider than   */
+/* the door so it drapes down the left and right sides like  */
+/* a reversed-bucket / torana arch.                          */
+.corner-flower {
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120%;
+  z-index: 40;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 18px rgba(122, 92, 58, 0.35));
+}
+
+/* ── Side Images (Rangoli left-top, Kolam right-bottom) ─── */
+/* Large decorations, roughly half off-screen on each side.  */
+.door-side-img {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.door-side-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* Rangoli – large, top-left corner, ~half off the left edge */
+.door-side-left {
+  /* top: 0;
+  left: 0;
+  width: clamp(220px, 36vw, 460px);
+  transform: translateX(-45%); */
+  top: -215px;
+  left: 68px;
+  width: clamp(419px, 36vw, 460px);
+  transform: translateX(-45%);
+}
+
+/* Kolam – large, bottom-right corner, ~half off the right edge */
+.door-side-right {
+  bottom: 0;
+  right: 0;
+  top: auto;
+  width: clamp(220px, 36vw, 460px);
+  transform: translateX(45%);
+}
+
+/* ── Mandala / Floral-Crest Watermarks (Page 1) ─────────────
+   Pure CSS. Each .mandala-wm uses:
+   · repeating-conic-gradient  → petal / spoke pattern
+   · radial-gradient rings     → concentric mandala circles
+   Opacity is kept very low so they feel like a watermark.
+   ─────────────────────────────────────────────────────────── */
+.mandala-wm {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 2;
+  background:
+    /* Spoke / petal pattern */
+    repeating-conic-gradient(
+      rgba(201, 168, 76, 0.55)  0deg  3deg,
+      transparent               3deg 10deg,
+      rgba(201, 168, 76, 0.30) 10deg 12deg,
+      transparent              12deg 20deg
+    ),
+    /* Concentric ring bands */
+    radial-gradient(circle at 50% 50%,
+      transparent 17%, rgba(201,168,76,0.55) 19%, transparent 21%,
+      transparent 36%, rgba(201,168,76,0.45) 38%, transparent 40%,
+      transparent 55%, rgba(201,168,76,0.35) 57%, transparent 59%,
+      transparent 74%, rgba(201,168,76,0.30) 76%, transparent 78%,
+      transparent 92%, rgba(201,168,76,0.25) 94%, transparent 96%
+    ),
+    /* Soft centre glow */
+    radial-gradient(circle at 50% 50%,
+      rgba(201,168,76,0.12) 0%, transparent 18%
+    );
+}
+
+/* Top-right — large, opposite the Rangoli */
+.mandala-wm-1 {
+  width:  clamp(180px, 28vw, 340px);
+  height: clamp(180px, 28vw, 340px);
+  top:   4%;
+  right: 3%;
+  opacity: 0.10;
+}
+
+/* Bottom-left — medium, opposite the Kolam */
+.mandala-wm-2 {
+  width:  clamp(140px, 22vw, 270px);
+  height: clamp(140px, 22vw, 270px);
+  bottom: 7%;
+  left:   4%;
+  opacity: 0.09;
+}
+
+/* Center-left — small, fills vertical mid space on left */
+.mandala-wm-3 {
+  width:  clamp(100px, 15vw, 190px);
+  height: clamp(100px, 15vw, 190px);
+  top:  42%;
+  left: 2%;
+  opacity: 0.07;
+}
+
+/* ── Ambient Sparkles (CSS only, no images) ─── */
+.sparkle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: sparkle 3s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(255,240,180,0.9), transparent 70%);
+}
+.s1 { width: 6px;  height: 6px;  top: 18%;  left: 22%;  animation-delay: 0s;   }
+.s2 { width: 10px; height: 10px; top: 30%;  right: 18%; animation-delay: 1.1s; }
+.s3 { width: 8px;  height: 8px;  top: 60%;  left: 15%;  animation-delay: 2.2s; }
+.s4 { width: 5px;  height: 5px;  top: 72%;  right: 22%; animation-delay: 0.7s; }
+
+/* ── Door Frame (wrapper with perspective) ─── */
+.door-frame {
+  position: relative;
+  width:  clamp(260px, 44vw, 560px);
+  height: clamp(340px, 68vh, 680px);
+  /* perspective applied per-panel for correct 3-D folding */
+}
+
+/* ── Content Behind The Doors ──────────────── */
+.door-behind {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  background: radial-gradient(
+    ellipse at center,
+    #fffdf5 0%,
+    #fdf6e0 60%,
+    #f8ead0 100%
+  );
+  border: 2px solid var(--gold-lt);
+  border-radius: var(--radius);
+  box-shadow:
+    inset 0 0 60px rgba(201, 168, 76, 0.08),
+    var(--shadow-md);
+}
+
+.behind-ornament {
+  font-size: clamp(0.85rem, 2vw, 1.1rem);
+  color: var(--gold);
+  letter-spacing: 0.6em;
+  margin-bottom: 1rem;
+  opacity: 0;
+  transition: opacity 0.9s ease 0.6s;
+}
+
+/* ── Change welcome heading in index.html ── */
+.behind-heading {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(1.8rem, 5vw, 3.2rem);
+  font-weight: 400;
+  color: var(--gold-dk);
+  line-height: 1.35;
+  margin-bottom: 0.8rem;
+  opacity: 0;
+  transition: opacity 0.9s ease 0.8s;
+}
+
+.behind-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(0.85rem, 2vw, 1.1rem);
+  color: var(--brown-md);
+  letter-spacing: 0.18em;
+  opacity: 0;
+  transition: opacity 0.9s ease 1.0s;
+}
+
+.behind-arrow {
+  margin-top: 1.2rem;
+  font-size: 1.4rem;
+  color: var(--gold);
+  opacity: 0;
+  transition: opacity 0.9s ease 1.1s;
+  animation: bounceArrow 1.8s ease-in-out infinite;
+  animation-play-state: paused;
+}
+
+/* When container gets .doors-open class (added by JS), reveal text */
+.door-frame.doors-open .behind-ornament,
+.door-frame.doors-open .behind-heading,
+.door-frame.doors-open .behind-sub,
+.door-frame.doors-open .behind-arrow {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+/* ── Door Panels ────────────────────────────── */
+.door {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  z-index: 5;
+  /* Wood-grain via layered gradients */
+  background:
+    repeating-linear-gradient(
+      88deg,
+      transparent 0px,
+      transparent 14px,
+      rgba(255,255,255,0.04) 14px,
+      rgba(255,255,255,0.04) 15px
+    ),
+    repeating-linear-gradient(
+      180deg,
+      transparent 0px,
+      transparent 28px,
+      rgba(0,0,0,0.02) 28px,
+      rgba(0,0,0,0.02) 56px
+    ),
+    linear-gradient(
+      175deg,
+      #d4a462 0%,
+      #b8803a 18%,
+      #9a6828 38%,
+      #b07840 55%,
+      #9a6828 72%,
+      #8a5c24 88%,
+      #7a4e18 100%
+    );
+  box-shadow: var(--shadow-lg);
+  transition: transform 1.35s var(--ease-door);
+  /* prevent text selection during animation */
+  user-select: none;
+}
+
+.door-left {
+  left: 0;
+  border-right: 3px solid rgba(50, 28, 6, 0.45);
+  border-radius: var(--radius) 0 0 var(--radius);
+  transform-origin: left center;
+}
+
+.door-right {
+  right: 0;
+  border-left: 3px solid rgba(50, 28, 6, 0.45);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  transform-origin: right center;
+}
+
+/* Open states – triggered by JS adding .open class */
+.door-left.open  { transform: perspective(1600px) rotateY(-118deg); }
+.door-right.open { transform: perspective(1600px) rotateY( 118deg); }
+
+/* ── Door Inner Panel ───────────────────────── */
+.door-panel-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 0.8rem;
+}
+
+.door-recess {
+  width: 62%;
+  flex: 1;
+  border: 1.5px solid rgba(255, 210, 120, 0.38);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.top-recess { margin-bottom: 0; flex: 2; }
+.bot-recess { flex: 1; margin-top: 0; }
+
+.door-glyph {
+  font-size: clamp(1rem, 2.5vw, 1.6rem);
+  color: rgba(255, 222, 130, 0.65);
+}
+
+/* ── Door Knob ──────────────────────────────── */
+.door-knob-wrap {
+  display: flex;
+  justify-content: flex-end;   /* right side by default = inner edge */
+  width: 100%;
+  padding: 0 10px;
+  flex-shrink: 0;
+  margin: 0.5rem 0;
+}
+.right-knob { justify-content: flex-start; }
+
+.door-knob {
+  width: clamp(10px, 1.8vw, 16px);
+  height: clamp(28px, 4.5vw, 44px);
+  background: linear-gradient(90deg, #b8902a, #f0cc50, #c8a030, #e8c040);
+  border-radius: 8px;
+  box-shadow:
+    0 2px 6px rgba(0,0,0,0.35),
+    inset 0 1px 2px rgba(255,255,255,0.3);
+}
+
+/* ── Door Scroll Prompt ─────────────────────── */
+.door-scroll-prompt {
+  position: absolute;
+  bottom: clamp(20px, 4vh, 42px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  opacity: 0.75;
+  transition: opacity 0.4s ease;
+  z-index: 20;
+  white-space: nowrap;
+}
+.door-scroll-prompt:hover { opacity: 1; }
+
+.dsp-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(0.8rem, 1.8vw, 1rem);
+  color: var(--brown-md);
+  letter-spacing: 0.2em;
+  animation: dspPulse 2.4s ease-in-out infinite;
+}
+
+.dsp-line {
+  display: block;
+  width: clamp(24px, 4vw, 50px);
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.6;
+}
+
+
+/* =============================================================
+   PAGE 2 — INVITATION
+   ============================================================= */
+
+#section-invitation {
+  background: linear-gradient(
+    148deg,
+    #fffaf0 0%,
+    #fdf1e0 35%,
+    #fceadc 65%,
+    #fae0d4 100%
+  );
+  /* Allow internal scroll on very small screens */
+  overflow-y: auto;
+  align-items: flex-start;
+}
+
+/* ── Banana Leaf Corners ─────────────────────── */
+/* Replace images/banana-leaf.png to swap the decoration.   */
+.banana-leaf {
+  position: absolute;
+  top: 2%;
+  width: clamp(57%, 12vw, 160px);
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.88;
+  filter: drop-shadow(0 4px 10px rgba(60, 100, 40, 0.18));
+}
+.leaf-left  { left: -29%; transform: scaleX(-1);}
+.leaf-right { right: -29%;  }
+
+/* ── Floral Border Strip ─────────────────────── */
+.floral-border {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 4;
+  text-align: center;
+  padding: 6px 0 4px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(201,168,76,0.12) 20%,
+    rgba(242,181,200,0.18) 50%,
+    rgba(201,168,76,0.12) 80%,
+    transparent 100%
+  );
+  border-bottom: 1px solid var(--gold-lt);
+}
+
+.fb-inner {
+  font-size: clamp(0.65rem, 1.4vw, 0.85rem);
+  color: var(--gold);
+  letter-spacing: 0.25em;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+}
+
+/* ── Invitation Content ──────────────────────── */
+.invitation-content {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: clamp(3.5rem, 8vw, 6rem) clamp(1rem, 4vw, 3rem) clamp(1.5rem, 3vw, 3rem);
+  text-align: center;
+}
+
+/* ── Change Tamil title in index.html ── */
+.inv-title.tamil {
+  font-family: 'Noto Serif Tamil', 'Cormorant Garamond', serif;
+  font-size: clamp(1.5rem, 4.5vw, 2.8rem);
+  font-weight: 600;
+  color: var(--gold-dk);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.15rem;
+}
+
+.inv-title-roman {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(0.8rem, 2vw, 1.1rem);
+  color: var(--brown-md);
+  letter-spacing: 0.3em;
+  margin-bottom: 0.8rem;
+}
+
+/* ── Change intro paragraph in index.html ── */
+.inv-intro {
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  color: var(--text-md);
+  font-style: italic;
+  line-height: 1.95;
+  margin-bottom: 1.4rem;
+}
+
+/* ── Couple Row ──────────────────────────────── */
+.couple-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.8rem, 3vw, 2.8rem);
+  margin-bottom: 1.4rem;
+  flex-wrap: wrap;
+}
+
+.person {
+  flex: 1;
+  min-width: 140px;
+  max-width: 220px;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.person-role {
+  display: block;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  color: var(--gold);
+  margin-bottom: 0.25rem;
+}
+
+/* ── Change person names in index.html ── */
+.person-name {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(1.55rem, 4vw, 2.3rem);
+  font-weight: 400;
+  color: var(--text-dk);
+  margin: 0.2rem 0 0.4rem;
+}
+
+.person-parents {
+  font-size: clamp(0.76rem, 1.7vw, 0.9rem);
+  color: var(--text-md);
+  line-height: 1.75;
+}
+
+/* ── Wedding Symbol ──────────────────────────── */
+.wed-symbol {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wed-symbol-ring {
+  width:  clamp(58px, 9vw, 88px);
+  height: clamp(58px, 9vw, 88px);
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--gold-lt) 0%, var(--cream) 100%);
+  border: 2px solid var(--gold);
+  box-shadow:
+    0 0 0 5px var(--cream),
+    0 0 0 7px var(--gold-lt),
+    var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: symbolPulse 2.8s ease-in-out infinite;
+}
+
+.wed-heart {
+  display: block;
+  font-size: clamp(0.95rem, 2.2vw, 1.4rem);
+  color: var(--pink);
+}
+
+.wed-label {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(0.6rem, 1.3vw, 0.8rem);
+  color: var(--gold-dk);
+  letter-spacing: 0.1em;
+  margin-top: 1px;
+}
+
+/* ── Venue Card ──────────────────────────────── */
+.venue-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 253, 244, 0.96) 0%,
+    rgba(253, 244, 226, 0.96) 100%
+  );
+  border: 1px solid var(--gold-lt);
+  border-radius: var(--radius);
+  padding: clamp(1rem, 2.5vw, 2rem) clamp(0.8rem, 2.5vw, 2rem);
+  box-shadow:
+    var(--shadow-md),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  position: relative;
+  overflow: visible;   /* allow cal-popup to appear above the card */
+}
+
+/* Subtle diagonal pattern inside card */
+.venue-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);   /* clip pattern within rounded corners now that card overflow is visible */
+  background: repeating-linear-gradient(
+    45deg,
+    transparent 0,
+    transparent 22px,
+    rgba(201, 168, 76, 0.025) 22px,
+    rgba(201, 168, 76, 0.025) 44px
+  );
+  pointer-events: none;
+}
+
+.venue-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  margin-bottom: 1.1rem;
+}
+
+.vh-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(0.72rem, 1.6vw, 0.88rem);
+  color: var(--gold-dk);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.vh-line {
+  display: block;
+  flex: 1;
+  height: 1px;
+  max-width: 70px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+.vh-line:last-child {
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+.venue-grid {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.6rem, 2.5vw, 2rem);
+  flex-wrap: wrap;
+}
+
+.venue-item {
+  flex: 1;
+  min-width: 120px;
+  max-width: 200px;
+  text-align: center;
+  padding: 0.4rem 0.5rem;
+}
+
+.vi-icon {
+  display: block;
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  margin-bottom: 0.3rem;
+}
+
+.vi-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.26em;
+  color: var(--gold-dk);
+  margin-bottom: 0.25rem;
+}
+
+/* ── Change venue values in index.html ── */
+.vi-value {
+  font-size: clamp(0.78rem, 1.7vw, 0.92rem);
+  color: var(--text-md);
+  font-style: italic;
+  line-height: 1.65;
+}
+
+/* ── Date Calendar Popup ─────────────────────────────────────
+   Appears above the Date & Time venue-item on hover.
+   May 2026 grid with 29th marked with a heart.
+   ─────────────────────────────────────────────────────────── */
+.date-cal-wrap {
+  position: relative;
+  cursor: default;
+}
+
+.cal-popup {
+  position: absolute;
+  bottom: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  width: 218px;
+  background: linear-gradient(135deg, #fffdf5 0%, #fdf4e0 100%);
+  border: 1.5px solid var(--gold-lt);
+  border-radius: 12px;
+  box-shadow:
+    0 10px 36px rgba(122, 92, 58, 0.22),
+    0 0 0 4px rgba(201, 168, 76, 0.08);
+  padding: 0.75rem 0.65rem 0.7rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0s linear 0.22s;
+  z-index: 600;
+  pointer-events: none;
+}
+
+/* Down-pointing caret */
+.cal-popup::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 7px solid transparent;
+  border-top-color: var(--gold-lt);
+}
+
+.date-cal-wrap:hover .cal-popup {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0s;
+}
+
+.cal-month-label {
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--gold-dk);
+  letter-spacing: 0.14em;
+  margin-bottom: 0.45rem;
+  padding-bottom: 0.38rem;
+  border-bottom: 1px solid var(--gold-lt);
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  text-align: center;
+}
+
+.cal-day-hd {
+  font-size: 0.56rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  padding: 2px 0 5px;
+  letter-spacing: 0.04em;
+}
+
+.cal-d,
+.cal-empty {
+  font-size: 0.68rem;
+  color: var(--text-md);
+  padding: 3px 1px;
+  line-height: 1.8;
+  border-radius: 50%;
+}
+
+.cal-empty { visibility: hidden; }
+
+/* 29th — heart highlight */
+.cal-marked {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--pink);
+  color: #7a001c;
+  font-weight: 700;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.55);
+  line-height: 1.2;
+  padding: 2px 1px;
+}
+
+.cal-heart {
+  display: block;
+  font-size: 0.5rem;
+  color: #c0004a;
+  line-height: 1;
+}
+
+
+/* =============================================================
+   PAGE 3 — WELCOME
+   ============================================================= */
+
+#section-welcome {
+  background: linear-gradient(
+    148deg,
+    #fff5f0 0%,
+    #fce4ec 38%,
+    #fdf0e0 72%,
+    #fce8d8 100%
+  );
+  overflow: hidden;
+}
+
+/* ── Floating Petals Container ───────────────── */
+.petals-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Individual petal  (positioned & styled by script.js) */
+.petal {
+  position: absolute;
+  top: -30px;
+  border-radius: 0 50% 50% 50%;
+  will-change: transform, opacity;
+  animation: petalFall linear infinite;
+}
+
+/* ── Welcome Content ─────────────────────────── */
+.welcome-content {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem);
+}
+
+/* ── Couple Illustration Frame ───────────────── */
+.couple-img-frame {
+  position: relative;
+  width:  clamp(150px, 26vw, 280px);
+  height: clamp(150px, 26vw, 280px);
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid var(--gold);
+  box-shadow:
+    0 0 0 7px rgba(201, 168, 76, 0.14),
+    0 0 0 14px rgba(201, 168, 76, 0.07),
+    var(--shadow-lg);
+  margin-bottom: 1.8rem;
+  animation: floatCouple 3.5s ease-in-out infinite;
+  background: var(--cream);
+  cursor: pointer;
+  transition:
+    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.couple-img-frame:hover {
+  transform: scale(1.13);
+  animation-play-state: paused;   /* pause float while zoomed */
+  border-color: var(--pink);
+  box-shadow:
+    0 0 0 8px rgba(242, 181, 200, 0.30),
+    0 0 0 16px rgba(242, 181, 200, 0.12),
+    0 18px 50px rgba(122, 92, 58, 0.28);
+}
+
+/* Replace images/ghibli-couple.png with your illustration */
+.couple-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Emoji fallback when no image is present */
+.couple-img-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(3.5rem, 8vw, 5rem);
+  z-index: 0;
+}
+.couple-img { position: relative; z-index: 1; }
+
+/* ── Change welcome heading in index.html ── */
+.welcome-heading {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(1.9rem, 5.5vw, 3.6rem);
+  font-weight: 400;
+  color: var(--gold-dk);
+  line-height: 1.3;
+  margin-bottom: 1rem;
+}
+
+/* ── Change thank-you message in index.html ── */
+.welcome-msg {
+  font-size: clamp(0.92rem, 2vw, 1.15rem);
+  color: var(--text-md);
+  font-style: italic;
+  max-width: 480px;
+  line-height: 1.85;
+  margin-bottom: 1.4rem;
+}
+
+/* ── Change names in index.html ── */
+.welcome-names {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(1.4rem, 3.5vw, 2.1rem);
+  color: var(--brown-md);
+  margin-bottom: 0.35rem;
+}
+
+/* ── Change date in index.html ── */
+.welcome-date {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(0.82rem, 1.8vw, 1rem);
+  letter-spacing: 0.45em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+
+/* =============================================================
+   FADE-IN UTILITY  (driven by IntersectionObserver in script.js)
+   ============================================================= */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity  0.95s ease,
+    transform 0.95s ease;
+}
+.fade-in-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Slight stagger for nested fade elements */
+.fade-in-section .venue-card {
+  transition-delay: 0.25s;
+}
+
+
+/* =============================================================
+   KEYFRAME ANIMATIONS
+   ============================================================= */
+
+/* Flower corner sway */
+@keyframes swayLeft {
+  0%, 100% { transform: rotate(0deg);  }
+  40%       { transform: rotate(4deg);  }
+  70%       { transform: rotate(-2deg); }
+}
+@keyframes swayRight {
+  0%, 100% { transform: scaleX(-1) rotate(0deg);  }
+  40%       { transform: scaleX(-1) rotate(4deg);  }
+  70%       { transform: scaleX(-1) rotate(-2deg); }
+}
+
+/* Sparkle fade-pulse */
+@keyframes sparkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50%       { opacity: 0.9; transform: scale(1.3); }
+}
+
+/* Door-scroll prompt pulse */
+@keyframes dspPulse {
+  0%, 100% { opacity: 0.65; }
+  50%       { opacity: 1;    }
+}
+
+/* Behind-door bounce arrow */
+@keyframes bounceArrow {
+  0%, 100% { transform: translateY(0);   }
+  50%       { transform: translateY(7px); }
+}
+
+/* Wedding symbol heartbeat */
+@keyframes symbolPulse {
+  0%, 100% { box-shadow: 0 0 0 5px var(--cream), 0 0 0 7px var(--gold-lt), var(--shadow-sm); }
+  50%       { box-shadow: 0 0 0 7px var(--cream), 0 0 0 11px rgba(201,168,76,0.28), var(--shadow-sm); }
+}
+
+/* Couple image gentle float */
+@keyframes floatCouple {
+  0%, 100% { transform: translateY(0px);   }
+  50%       { transform: translateY(-9px);  }
+}
+
+/* Petal falling with horizontal drift */
+@keyframes petalFall {
+  0%   { transform: translateY(-30px)   rotate(0deg)   translateX(0px);   opacity: 0.85; }
+  20%  { transform: translateY(20vh)    rotate(72deg)  translateX(18px);  opacity: 0.75; }
+  40%  { transform: translateY(40vh)    rotate(144deg) translateX(-14px); opacity: 0.65; }
+  60%  { transform: translateY(60vh)    rotate(216deg) translateX(20px);  opacity: 0.50; }
+  80%  { transform: translateY(80vh)    rotate(288deg) translateX(-10px); opacity: 0.30; }
+  100% { transform: translateY(108vh)   rotate(360deg) translateX(8px);   opacity: 0;    }
+}
+
+
+/* =============================================================
+   RESPONSIVE
+   ============================================================= */
+
+/* ── Tablet ─── */
+@media (max-width: 768px) {
+  /* Relax snap so invitation content can scroll if taller than viewport */
+  .scroll-container {
+    scroll-snap-type: y proximity;
+  }
+
+  /* Allow invitation section to be taller than viewport */
+  #section-invitation {
+    height: auto;
+    min-height: 100dvh;
+    align-items: flex-start;
+    padding-bottom: 2rem;
+  }
+
+  /* Stack couple names vertically */
+  .couple-row {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .wed-symbol { order: 0; }
+  .groom      { order: -1; }
+  .bride      { order: 1; }
+
+  .person {
+    max-width: 95%;
+    min-width: unset;
+  }
+
+  /* Stack venue grid */
+  .venue-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .venue-item {
+    max-width: 100%;
+    width: 100%;
+    border-bottom: 1px solid var(--gold-lt);
+    padding-bottom: 0.8rem;
+  }
+  .venue-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .banana-leaf { width: 70px; }
+
+  /* Hide side decorations on tablet & smaller */
+  .door-side-img { display: none; }
+
+  /* Top photo on tablet */
+  .door-top-photo-frame { width: 90px; height: 90px; }
+}
+
+/* ── Large phone ─── */
+@media (max-width: 540px) {
+  /* Top photo smaller on phone */
+  .door-top-photo-frame { width: 70px; height: 70px; }
+
+  .door-frame {
+    width:  88vw;
+    height: 58vh;
+  }
+
+  .couple-img-frame {
+    width:  140px;
+    height: 140px;
+  }
+
+  .inv-title.tamil { font-size: 1.4rem; }
+}
+
+/* ── Small phone ─── */
+@media (max-width: 380px) {
+  .door-frame {
+    width:  92vw;
+    height: 54vh;
+  }
+
+  .behind-heading { font-size: 1.6rem; }
+
+  /* Shrink top photo on very small phones */
+  .door-top-photo-frame { width: 60px; height: 60px; }
+}
+
+/* ── Large desktop ─── */
+@media (min-width: 1440px) {
+  .invitation-content { max-width: 1000px; }
+}
+
+/* ── Respect reduced-motion preference ─── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration:   0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration:  0.01ms !important;
+  }
+}

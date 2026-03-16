@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Wedding Invitation – Vinoth & Kailashini" />
+  <title>Wedding Invitation – Vinoth &amp; Kailashini</title>
+
+  <!-- =====================================================
+       FONTS  –  Change or remove Google Fonts here
+       ===================================================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+Tamil:wght@300;400;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- =====================================================
+       OUTER SCROLL CONTAINER
+       scroll-snap is applied here; each .section snaps to it
+       ===================================================== -->
+  <div class="scroll-container" id="scrollContainer">
+
+
+    <!-- ===================================================
+         PAGE 1 — DOOR OPENING
+         =================================================== -->
+    <section class="section" id="section-door">
+
+      <!-- ── Side images (left & right of door) ────────
+           Replace images/side-left.png and images/side-right.png
+           with your preferred images (e.g. kolam, lamp, portrait).
+           ──────────────────────────────────────────────── -->
+      <div class="door-side-img door-side-left">
+        <img
+          src="images/Rangoli.png"
+          alt="Left decoration"
+          onerror="this.style.display='none'"
+        />
+      </div>
+      <div class="door-side-img door-side-right">
+        <img
+          src="images/kolam.png"
+          alt="Right decoration"
+          onerror="this.style.display='none'"
+        />
+      </div>
+
+      <!-- Subtle ambient sparkles (pure CSS) -->
+      <div class="sparkle s1"></div>
+      <div class="sparkle s2"></div>
+      <div class="sparkle s3"></div>
+      <div class="sparkle s4"></div>
+
+      <!-- ── Mandala / floral-crest watermarks (pure CSS) ── -->
+      <div class="mandala-wm mandala-wm-1" aria-hidden="true"></div>
+      <div class="mandala-wm mandala-wm-2" aria-hidden="true"></div>
+      <div class="mandala-wm mandala-wm-3" aria-hidden="true"></div>
+
+      <!-- ── Door assembly ──────────────────────────────
+           door-behind  : content revealed AFTER doors open
+           door-left    : left wooden panel
+           door-right   : right wooden panel
+           ──────────────────────────────────────────────── -->
+      <div class="door-stage">
+
+      <!-- ── Round photo above the door ───────────────
+           Replace images/ghibli-couple.png with your photo.
+           ──────────────────────────────────────────────── -->
+      <div class="door-top-photo-frame">
+        <img
+          class="door-top-photo"
+          src="images/ganesha.png"
+          alt="Couple photo"
+          onerror="this.style.opacity='0'"
+        />
+        <span class="door-top-photo-fallback" aria-hidden="true">💑</span>
+      </div>
+
+      <div class="door-frame">
+
+        <!-- ── Floral arch over the door (covers top, left & right) ── -->
+        <img
+          class="corner-flower"
+          src="images/flower.png"
+          alt="Floral arch decoration"
+          onerror="this.style.display='none'"
+        />
+
+        <!-- Content revealed behind the doors -->
+        <div class="door-behind">
+          <p class="behind-ornament">✦ &nbsp; ✦ &nbsp; ✦</p>
+
+          <!-- ── Change welcome heading here ── -->
+          <h1 class="behind-heading">Welcome to Our<br />Wedding Invitation</h1>
+
+          <p class="behind-sub">Scroll down to enter</p>
+          <div class="behind-arrow" aria-hidden="true">↓</div>
+        </div>
+
+        <!-- Left door panel -->
+        <div class="door door-left" id="doorLeft" aria-hidden="true">
+          <div class="door-panel-inner">
+            <div class="door-recess top-recess">
+              <span class="door-glyph">✦</span>
+            </div>
+            <div class="door-knob-wrap">
+              <div class="door-knob"></div>
+            </div>
+            <div class="door-recess bot-recess"></div>
+          </div>
+        </div>
+
+        <!-- Right door panel -->
+        <div class="door door-right" id="doorRight" aria-hidden="true">
+          <div class="door-panel-inner">
+            <div class="door-recess top-recess">
+              <span class="door-glyph">✦</span>
+            </div>
+            <div class="door-knob-wrap right-knob">
+              <div class="door-knob"></div>
+            </div>
+            <div class="door-recess bot-recess"></div>
+          </div>
+        </div>
+
+      </div><!-- /door-frame -->
+
+      </div><!-- /door-stage -->
+
+      <!-- Scroll prompt below the door (always visible) -->
+      <div class="door-scroll-prompt" id="doorScrollPrompt">
+        <span class="dsp-line"></span>
+        <span class="dsp-text">Scroll to Open</span>
+        <span class="dsp-line"></span>
+      </div>
+
+    </section><!-- /section-door -->
+
+
+    <!-- ===================================================
+         PAGE 2 — WEDDING INVITATION
+         =================================================== -->
+    <section class="section" id="section-invitation">
+
+      <!-- ── Banana-leaf corner decorations ─────────────
+           Replace  images/banana-leaf.png  with your leaf image.
+           ──────────────────────────────────────────────── -->
+      <img
+        class="banana-leaf leaf-left"
+        src="images/banana-leaf.png"
+        alt="Banana leaf"
+        onerror="this.style.display='none'"
+      />
+      <img
+        class="banana-leaf leaf-right"
+        src="images/banana-leaf.png"
+        alt="Banana leaf"
+        onerror="this.style.display='none'"
+      />
+
+      <!-- Floral ornamental border strip at the very top -->
+      <div class="floral-border" aria-hidden="true">
+        <span class="fb-inner">❧ ✿ ❧ ✿ ❧ ✿ ❧ ✿ ❧ ✿ ❧ ✿ ❧ ✿ ❧ ✿ ❧ ✿ ❧ ✿ ❧ ✿ ❧ ✿ ❧</span>
+      </div>
+
+      <!-- ── Main invitation card ───────────────────── -->
+      <div class="invitation-content fade-in-section">
+
+        <!-- ── Change Tamil title here ── -->
+        <h2 class="inv-title tamil">திருமண அழைப்பிதழ்</h2>
+        <!-- ── Change romanised subtitle here ── -->
+        <p class="inv-title-roman">Thirumana Azhaipithal</p>
+
+        <!-- ── Change introduction paragraph here ── -->
+        <p class="inv-intro">
+          With the blessings of our families,<br />
+          we joyfully invite you to celebrate the wedding of
+        </p>
+
+        <!-- ── Couple block ────────────────────────── -->
+        <div class="couple-row">
+
+          <!-- ─ Groom ─
+               Change groom's name and parents below -->
+          <div class="person groom">
+            <span class="person-role">Groom</span>
+            <h3 class="person-name">Vinoth</h3>
+            <p class="person-parents">
+              Son of<br />
+              <strong>The Late Mr. PanneerSelvam</strong><br />
+              &amp; <strong>Mrs. Sudha</strong>
+            </p>
+          </div>
+
+          <!-- Wedding symbol -->
+          <div class="wed-symbol" aria-hidden="true">
+            <div class="wed-symbol-ring">
+              <span class="wed-heart">♥</span>
+              <span class="wed-label">Weds</span>
+            </div>
+          </div>
+
+          <!-- ─ Bride ─
+               Change bride's name and parents below -->
+          <div class="person bride">
+            <span class="person-role">Bride</span>
+            <h3 class="person-name">Kailashini</h3>
+            <p class="person-parents">
+              Daughter of<br />
+              <strong>Mr. Manivel</strong><br />
+              &amp; <strong>Mrs. Gayatri</strong>
+            </p>
+          </div>
+
+        </div><!-- /couple-row -->
+
+        <!-- ── Venue details card ─────────────────── -->
+        <div class="venue-card fade-in-section">
+
+          <div class="venue-header">
+            <span class="vh-line"></span>
+            <span class="vh-text">✦ Wedding Details ✦</span>
+            <span class="vh-line"></span>
+          </div>
+
+          <div class="venue-grid">
+
+            <!-- ── Change venue name here ── -->
+            <div class="venue-item">
+              <span class="vi-icon">🏛️</span>
+              <p class="vi-label">Venue</p>
+              <p class="vi-value"><a href="https://share.google/LEXRomAXyCHq5Vkwj">Sri Meenakshi Sundareshwarar</a><br />Temple</p>
+            </div>
+
+            <!-- ── Change date and time here ── -->
+            <div class="venue-item date-cal-wrap">
+              <span class="vi-icon">📅</span>
+              <p class="vi-label">Date &amp; Time</p>
+              <p class="vi-value">Friday, 29th May 2026<br />Marriage: 4:30 AM to 6:30 AM</p>
+              <div class="cal-popup" role="tooltip" aria-label="May 2026 calendar">
+                <p class="cal-month-label">May 2026</p>
+                <div class="cal-grid">
+                  <span class="cal-day-hd">Su</span><span class="cal-day-hd">Mo</span><span class="cal-day-hd">Tu</span><span class="cal-day-hd">We</span><span class="cal-day-hd">Th</span><span class="cal-day-hd">Fr</span><span class="cal-day-hd">Sa</span>
+                  <span class="cal-empty"></span><span class="cal-empty"></span><span class="cal-empty"></span><span class="cal-empty"></span><span class="cal-empty"></span><span class="cal-d">1</span><span class="cal-d">2</span>
+                  <span class="cal-d">3</span><span class="cal-d">4</span><span class="cal-d">5</span><span class="cal-d">6</span><span class="cal-d">7</span><span class="cal-d">8</span><span class="cal-d">9</span>
+                  <span class="cal-d">10</span><span class="cal-d">11</span><span class="cal-d">12</span><span class="cal-d">13</span><span class="cal-d">14</span><span class="cal-d">15</span><span class="cal-d">16</span>
+                  <span class="cal-d">17</span><span class="cal-d">18</span><span class="cal-d">19</span><span class="cal-d">20</span><span class="cal-d">21</span><span class="cal-d">22</span><span class="cal-d">23</span>
+                  <span class="cal-d">24</span><span class="cal-d">25</span><span class="cal-d">26</span><span class="cal-d">27</span><span class="cal-d">28</span><span class="cal-marked">29<span class="cal-heart">♥</span></span><span class="cal-d">30</span>
+                  <span class="cal-d">31</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Change address here ── -->
+            <div class="venue-item">
+              <span class="vi-icon">📍</span>
+              <p class="vi-label">Address</p>
+              <p class="vi-value">2XGV+RVG, Peelamedu, Lal Bahadhur Colony  <br />Coimbatore – 641 004</p>
+            </div>
+
+          </div><!-- /venue-grid -->
+        </div><!-- /venue-card -->
+
+        <!-- ── Reception details card ────────────────── -->
+        <div class="venue-card fade-in-section" style="margin-top: 1.2rem;">
+
+          <div class="venue-header">
+            <span class="vh-line"></span>
+            <span class="vh-text">✦ Reception Details ✦</span>
+            <span class="vh-line"></span>
+          </div>
+
+          <div class="venue-grid">
+
+            <!-- ── Change venue name here ── -->
+            <div class="venue-item">
+              <span class="vi-icon">🏛️</span>
+              <p class="vi-label">Venue</p>
+              <p class="vi-value"><a href="https://share.google/Riciava0UcklEJfjy">Shree Aksshayam</a><br />Hall</p>
+            </div>
+
+            <!-- ── Change reception date and time here ── -->
+            <div class="venue-item date-cal-wrap">
+              <span class="vi-icon">📅</span>
+              <p class="vi-label">Date &amp; Time</p>
+              <p class="vi-value">Friday, 29th May 2026<br /> Reception: 7:30 AM to 11:00 AM</p>
+              <div class="cal-popup" role="tooltip" aria-label="May 2026 calendar">
+                <p class="cal-month-label">May 2026</p>
+                <div class="cal-grid">
+                  <span class="cal-day-hd">Su</span><span class="cal-day-hd">Mo</span><span class="cal-day-hd">Tu</span><span class="cal-day-hd">We</span><span class="cal-day-hd">Th</span><span class="cal-day-hd">Fr</span><span class="cal-day-hd">Sa</span>
+                  <span class="cal-empty"></span><span class="cal-empty"></span><span class="cal-empty"></span><span class="cal-empty"></span><span class="cal-empty"></span><span class="cal-d">1</span><span class="cal-d">2</span>
+                  <span class="cal-d">3</span><span class="cal-d">4</span><span class="cal-d">5</span><span class="cal-d">6</span><span class="cal-d">7</span><span class="cal-d">8</span><span class="cal-d">9</span>
+                  <span class="cal-d">10</span><span class="cal-d">11</span><span class="cal-d">12</span><span class="cal-d">13</span><span class="cal-d">14</span><span class="cal-d">15</span><span class="cal-d">16</span>
+                  <span class="cal-d">17</span><span class="cal-d">18</span><span class="cal-d">19</span><span class="cal-d">20</span><span class="cal-d">21</span><span class="cal-d">22</span><span class="cal-d">23</span>
+                  <span class="cal-d">24</span><span class="cal-d">25</span><span class="cal-d">26</span><span class="cal-d">27</span><span class="cal-d">28</span><span class="cal-marked">29<span class="cal-heart">♥</span></span><span class="cal-d">30</span>
+                  <span class="cal-d">31</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Change reception address here ── -->
+            <div class="venue-item">
+              <span class="vi-icon">📍</span>
+              <p class="vi-label">Address</p>
+              <p class="vi-value">27 A, Nava India Rd, Peelamedu<br />Coimbatore – 641 037</p>
+            </div>
+
+          </div><!-- /venue-grid -->
+        </div><!-- /reception-card -->
+
+      </div><!-- /invitation-content -->
+
+    </section><!-- /section-invitation -->
+
+
+    <!-- ===================================================
+         PAGE 3 — WELCOME
+         =================================================== -->
+    <section class="section" id="section-welcome">
+
+      <!-- Floating petals injected by script.js -->
+      <div class="petals-container" id="petalsContainer" aria-hidden="true"></div>
+
+      <!-- ── Welcome card ────────────────────────────── -->
+      <div class="welcome-content fade-in-section">
+
+        <!-- ── Replace  images/ghibli-couple.png  with your illustration ──
+             Recommended: a soft Ghibli-style or watercolour illustration.
+             The image is displayed in a circular frame.                    -->
+        <div class="couple-img-frame">
+          <img
+            class="couple-img"
+            src="images/ghibli-couple.png"
+            alt="Illustration of Vinoth and Kailashini"
+            onerror="this.style.opacity='0'"
+          />
+          <!-- Fallback emoji shown when image is missing -->
+          <span class="couple-img-fallback" aria-hidden="true">💑</span>
+        </div>
+
+        <!-- ── Change welcome heading here ── -->
+        <h2 class="welcome-heading">
+          Welcome to our<br />Wedding Celebration
+        </h2>
+
+        <!-- ── Change thank-you message here ── -->
+        <p class="welcome-msg">
+          Your presence will make our special day even more memorable.
+        </p>
+
+        <!-- ── Change names here ── -->
+        <p class="welcome-names">Vinoth &amp; Kailashini</p>
+
+        <!-- ── Change wedding date here ── -->
+        <p class="welcome-date">29 · 05 · 2026</p>
+
+      </div><!-- /welcome-content -->
+
+    </section><!-- /section-welcome -->
+
+
+  </div><!-- /scroll-container -->
+
+  <script src="script.js"></script>
+</body>
+</html>
