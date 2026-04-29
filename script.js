@@ -223,6 +223,30 @@
   initPetals();
 
   /* ───────────────────────────────────────────────────────────
+     BACKGROUND MUSIC  — starts only on button click
+     ─────────────────────────────────────────────────────────── */
+  var bgMusic     = document.getElementById('bgMusic');
+  var musicToggle = document.getElementById('musicToggle');
+  var musicIcon   = document.getElementById('musicIcon');
+
+  if (musicToggle && bgMusic) {
+    musicToggle.addEventListener('click', function () {
+      if (bgMusic.paused) {
+        bgMusic.volume = 0.45;
+        bgMusic.play();
+        musicToggle.classList.add('playing');
+        musicToggle.setAttribute('aria-label', 'Pause music');
+        musicIcon.innerHTML = '&#10074;&#10074;';   /* ❚❚ pause */
+      } else {
+        bgMusic.pause();
+        musicToggle.classList.remove('playing');
+        musicToggle.setAttribute('aria-label', 'Play music');
+        musicIcon.innerHTML = '&#9654;';            /* ▶ play  */
+      }
+    });
+  }
+
+  /* ───────────────────────────────────────────────────────────
      RESIZE HANDLER  (recalculate page index on window resize)
      ─────────────────────────────────────────────────────────── */
   window.addEventListener('resize', function () {

@@ -1368,3 +1368,43 @@ img {
     transition-duration:  0.01ms !important;
   }
 }
+
+/* ─────────────────────────────────────────────
+   MUSIC BUTTON
+   ───────────────────────────────────────────── */
+.music-btn {
+  position:        fixed;
+  bottom:          1.1rem;
+  right:           1.1rem;
+  z-index:         9999;
+  width:           2.4rem;
+  height:          2.4rem;
+  border-radius:   50%;
+  border:          2px solid var(--gold);
+  background:      var(--gold);
+  color:           #fff;
+  font-size:       0.75rem;
+  cursor:          pointer;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  box-shadow:      0 0 0 4px rgba(201,168,76,0.30),
+                   0 4px 16px rgba(122,92,58,0.30);
+  transition:      background 0.2s, transform 0.2s, box-shadow 0.2s;
+  /* pulsing glow to draw attention */
+  animation:       music-pulse 1.8s ease-in-out infinite;
+}
+.music-btn:hover {
+  transform:  scale(1.12);
+  background: var(--gold-dk);
+}
+.music-btn.playing {
+  background: var(--gold-dk);
+  animation:  none;
+  box-shadow: 0 0 0 4px rgba(201,168,76,0.20),
+              0 4px 16px rgba(122,92,58,0.30);
+}
+@keyframes music-pulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(201,168,76,0.35), 0 4px 16px rgba(122,92,58,0.25); }
+  50%       { box-shadow: 0 0 0 8px rgba(201,168,76,0.10), 0 4px 20px rgba(122,92,58,0.30); }
+}
