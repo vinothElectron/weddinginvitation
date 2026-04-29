@@ -124,13 +124,18 @@ img {
    arch SVG overlaps the top of the door and the
    photo-frame floats centred over the keystone.
    ─────────────────────────────────────────────── */
+/* ── arch-wrap: just holds the medallion + photo frame ── */
 .door-arch-wrap {
+  position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  margin-bottom: 12px;
-  z-index: 38;
+  justify-content: center;
+  /* height = medallion diameter so the absolute medallion centres correctly */
+  height: calc(clamp(90px, 16vw, 160px) * 1.58);
+  width:  calc(clamp(90px, 16vw, 160px) * 1.58);
+  margin-bottom: 10px;
   flex-shrink: 0;
+  z-index: 38;
 }
 
 /* ── Ornate gold medallion ring behind the Ganesha frame ─── */
@@ -154,12 +159,6 @@ img {
   overflow: visible;
 }
 
-/* Photo frame sits inside the arch-wrap, centred via the flex column.
-   The medallion SVG is position:absolute behind it. */
-.door-arch-wrap {
-  position: relative;
-  padding: calc(clamp(90px, 16vw, 160px) * 0.79) 0;
-}
 .door-arch-wrap .door-top-photo-frame {
   position: relative;
   z-index: 45;
@@ -336,7 +335,8 @@ img {
 .door-frame {
   position: relative;
   width:  clamp(290px, 50vw, 640px);
-  height: clamp(380px, 72vh, 760px);
+  /* Height leaves room for the photo frame above (≈ 1.58 × clamp(90px,16vw,160px) + gap) */
+  height: clamp(300px, calc(88vh - clamp(142px, 25.3vw, 253px)), 600px);
   /* Gold stepped border */
   border: 4px solid var(--gold);
   outline: 2px solid rgba(201, 168, 76, 0.30);
@@ -1314,11 +1314,15 @@ img {
 
   /* Top photo on tablet */
   .door-top-photo-frame { width: 90px; height: 90px; }
-  .door-arch-wrap { width: 88vw; }
+  .door-arch-wrap { height: calc(90px * 1.58); width: calc(90px * 1.58); }
 }
 
 /* ── Large phone ─── */
 @media (max-width: 540px) {
+  .banana-leaf { width: 52px; }
+  .leaf-left  { left: -8%; }
+  .leaf-right { right: -8%; }
+
   /* Top photo smaller on phone */
   .door-top-photo-frame { width: 70px; height: 70px; }
 
@@ -1326,7 +1330,7 @@ img {
     width:  88vw;
     height: 58vh;
   }
-  .door-arch-wrap { width: 88vw; }
+  .door-arch-wrap { height: calc(70px * 1.58); width: calc(70px * 1.58); }
 
   .couple-img-frame {
     width:  140px;
@@ -1342,9 +1346,10 @@ img {
     width:  92vw;
     height: 54vh;
   }
-  .door-arch-wrap { width: 92vw; }
-
-  .behind-heading { font-size: 1.6rem; }
+  .door-arch-wrap { height: calc(60px * 1.58); width: calc(60px * 1.58); }
+  .banana-leaf { width: 160px; }
+  .leaf-left  { left: -27%; }
+  .leaf-right { right: -27%; }
 
   /* Shrink top photo on very small phones */
   .door-top-photo-frame { width: 60px; height: 60px; }
