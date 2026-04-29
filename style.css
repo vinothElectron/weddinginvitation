@@ -106,12 +106,9 @@ img {
    ============================================================= */
 
 #section-door {
-  background: radial-gradient(
-    ellipse 80% 70% at 50% 40%,
-    #fffcf2 0%,
-    #fdf0d0 45%,
-    #f5ddb0 100%
-  );
+  background:
+    radial-gradient(ellipse 55% 45% at 50% 36%, rgba(255,253,238,0.96) 0%, transparent 65%),
+    radial-gradient(ellipse 95% 85% at 50% 55%, #fdf0d0 0%, #f0d8a0 70%, #e6c888 100%);
 }
 
 /* ── Door Stage (column wrapper: photo + door) ─── */
@@ -122,20 +119,73 @@ img {
   position: relative;
 }
 
+/* ── Arch + photo wrapper ─────────────────────────
+   Sits between .door-stage and .door-frame so the
+   arch SVG overlaps the top of the door and the
+   photo-frame floats centred over the keystone.
+   ─────────────────────────────────────────────── */
+.door-arch-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 12px;
+  z-index: 38;
+  flex-shrink: 0;
+}
+
+/* ── Ornate gold medallion ring behind the Ganesha frame ─── */
+.door-medallion {
+  position: absolute;
+  top:  50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width:  calc(clamp(90px, 16vw, 160px) * 1.58);
+  height: calc(clamp(90px, 16vw, 160px) * 1.58);
+  z-index: 44;
+  pointer-events: none;
+  filter:
+    drop-shadow(0 8px 24px rgba(80, 50, 5, 0.52))
+    drop-shadow(0 0 14px rgba(201, 168, 76, 0.32));
+}
+.door-medallion svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+/* Photo frame sits inside the arch-wrap, centred via the flex column.
+   The medallion SVG is position:absolute behind it. */
+.door-arch-wrap {
+  position: relative;
+  padding: calc(clamp(90px, 16vw, 160px) * 0.79) 0;
+}
+.door-arch-wrap .door-top-photo-frame {
+  position: relative;
+  z-index: 45;
+  background: radial-gradient(circle, #fffdf5 55%, #fdf0d8 100%);
+  border: 3px solid rgba(201, 168, 76, 0.65);
+  box-shadow:
+    0 0 0 2px rgba(201, 168, 76, 0.20),
+    0 10px 32px rgba(80, 50, 5, 0.48),
+    inset 0 0 12px rgba(201, 168, 76, 0.10);
+}
+
 /* ── Round photo above the door ─────────────────── */
 .door-top-photo-frame {
   position: relative;
-  width:  clamp(80px, 14vw, 140px);
-  height: clamp(80px, 14vw, 140px);
+  width:  clamp(90px, 16vw, 160px);
+  height: clamp(90px, 16vw, 160px);
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid var(--gold);
+  border: 4px solid var(--gold);
   box-shadow:
-    0 0 0 5px rgba(201, 168, 76, 0.18),
-    0 0 0 10px rgba(201, 168, 76, 0.07),
+    0 0 0 6px rgba(201, 168, 76, 0.22),
+    0 0 0 11px rgba(201, 168, 76, 0.09),
+    0 0 0 17px rgba(201, 168, 76, 0.04),
+    0 0 36px rgba(201, 168, 76, 0.28),
     var(--shadow-md);
   background: var(--cream);
-  margin-bottom: 0.55rem;
   z-index: 35;
   flex-shrink: 0;
 }
@@ -164,13 +214,13 @@ img {
 /* a reversed-bucket / torana arch.                          */
 .corner-flower {
   position: absolute;
-  top: -11px;
+  top: -13px;
   left: 50%;
   transform: translateX(-50%);
-  width: 120%;
+  width: 132%;
   z-index: 40;
   pointer-events: none;
-  filter: drop-shadow(0 6px 18px rgba(122, 92, 58, 0.35));
+  filter: drop-shadow(0 8px 22px rgba(100, 60, 10, 0.42));
 }
 
 /* ── Side Images (Rangoli left-top, Kolam right-bottom) ─── */
@@ -248,7 +298,7 @@ img {
   height: clamp(180px, 28vw, 340px);
   top:   4%;
   right: 3%;
-  opacity: 0.10;
+  opacity: 0.07;
 }
 
 /* Bottom-left — medium, opposite the Kolam */
@@ -285,9 +335,59 @@ img {
 /* ── Door Frame (wrapper with perspective) ─── */
 .door-frame {
   position: relative;
-  width:  clamp(260px, 44vw, 560px);
-  height: clamp(340px, 68vh, 680px);
-  /* perspective applied per-panel for correct 3-D folding */
+  width:  clamp(290px, 50vw, 640px);
+  height: clamp(380px, 72vh, 760px);
+  /* Gold stepped border */
+  border: 4px solid var(--gold);
+  outline: 2px solid rgba(201, 168, 76, 0.30);
+  outline-offset: 7px;
+  border-radius: var(--radius);
+  box-shadow:
+    0 0 0 11px rgba(201, 168, 76, 0.10),
+    0 0 0 13px rgba(201, 168, 76, 0.05),
+    0 22px 70px rgba(100, 64, 10, 0.32),
+    inset 0 0 50px rgba(201, 168, 76, 0.06);
+}
+
+/* Classical Ionic column pillars flanking the door frame */
+/* These are now rendered as SVG elements in the HTML */
+.door-frame::before,
+.door-frame::after { display: none; }
+
+/* ── Classical Column Pillars ─────────────────────────────── */
+.door-column {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: clamp(38px, 6vw, 72px);
+  z-index: 6;
+  pointer-events: none;
+  filter:
+    drop-shadow(-3px 4px 12px rgba(80, 50, 5, 0.38))
+    drop-shadow( 3px 4px 12px rgba(80, 50, 5, 0.38));
+}
+.door-column-left  {
+  right: calc(100% + 2px);
+}
+.door-column-right {
+  left: calc(100% + 2px);
+}
+.door-column svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+/* Restore pillars smoothly if doors ever close */
+.door-column {
+  transition: opacity 0.5s ease;
+}
+
+/* Fade pillars as door edges sweep through their position (~0.4 s into the 1.35 s swing) */
+.door-frame.doors-open .door-column {
+  opacity: 0;
+  transition: opacity 0.55s ease 0.4s;
 }
 
 /* ── Content Behind The Doors ──────────────── */
@@ -405,21 +505,21 @@ img {
 
 .door-left {
   left: 0;
-  border-right: 3px solid rgba(50, 28, 6, 0.45);
+  border-right: 5px solid rgba(30, 12, 2, 0.70);
   border-radius: var(--radius) 0 0 var(--radius);
   transform-origin: left center;
 }
 
 .door-right {
   right: 0;
-  border-left: 3px solid rgba(50, 28, 6, 0.45);
+  border-left: 5px solid rgba(30, 12, 2, 0.70);
   border-radius: 0 var(--radius) var(--radius) 0;
   transform-origin: right center;
 }
 
 /* Open states – triggered by JS adding .open class */
-.door-left.open  { transform: perspective(1600px) rotateY(-118deg); }
-.door-right.open { transform: perspective(1600px) rotateY( 118deg); }
+.door-left.open  { transform: perspective(1800px) rotateY(-122deg); }
+.door-right.open { transform: perspective(1800px) rotateY( 122deg); }
 
 /* ── Door Inner Panel ───────────────────────── */
 .door-panel-inner {
@@ -433,23 +533,28 @@ img {
 }
 
 .door-recess {
-  width: 62%;
+  width: 70%;
   flex: 1;
-  border: 1.5px solid rgba(255, 210, 120, 0.38);
-  border-radius: 4px;
-  background: rgba(0, 0, 0, 0.1);
-  box-shadow: inset 0 2px 8px rgba(0,0,0,0.22);
+  border: 2px solid rgba(255, 215, 100, 0.48);
+  border-radius: 5px;
+  background:
+    linear-gradient(150deg, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.10) 100%);
+  box-shadow:
+    inset 0 3px 14px rgba(0,0,0,0.30),
+    inset 0 0 22px rgba(0,0,0,0.14),
+    0 1px 0 rgba(255,215,80,0.22);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.top-recess { margin-bottom: 0; flex: 2; }
-.bot-recess { flex: 1; margin-top: 0; }
+.top-recess { margin-bottom: 0; flex: 2.2; }
+.bot-recess { flex: 1.1; margin-top: 0; }
 
 .door-glyph {
   font-size: clamp(1rem, 2.5vw, 1.6rem);
-  color: rgba(255, 222, 130, 0.65);
+  color: rgba(255, 230, 140, 0.82);
+  text-shadow: 0 0 12px rgba(255, 210, 80, 0.55);
 }
 
 /* ── Door Knob ──────────────────────────────── */
@@ -464,13 +569,27 @@ img {
 .right-knob { justify-content: flex-start; }
 
 .door-knob {
-  width: clamp(10px, 1.8vw, 16px);
-  height: clamp(28px, 4.5vw, 44px);
-  background: linear-gradient(90deg, #b8902a, #f0cc50, #c8a030, #e8c040);
-  border-radius: 8px;
+  position: relative;
+  width: clamp(12px, 2vw, 20px);
+  height: clamp(34px, 5.2vw, 56px);
+  background: linear-gradient(90deg, #8a6012, #f8e060, #c8a030, #f0d050, #9a7020);
+  border-radius: 50px;
   box-shadow:
-    0 2px 6px rgba(0,0,0,0.35),
-    inset 0 1px 2px rgba(255,255,255,0.3);
+    0 3px 10px rgba(0,0,0,0.45),
+    0 1px 0 rgba(255,245,140,0.55),
+    inset 0 2px 4px rgba(255,255,255,0.30);
+}
+
+.door-knob::after {
+  content: '';
+  position: absolute;
+  top: 16%;
+  left: 18%;
+  width: 28%;
+  height: 28%;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.38);
+  filter: blur(2px);
 }
 
 /* ── Door Scroll Prompt ─────────────────────── */
@@ -504,6 +623,38 @@ img {
   height: 1px;
   background: var(--gold);
   opacity: 0.6;
+}
+
+/* Extra sparkles */
+.s5 { width:  7px; height:  7px; top: 14%;  left: 40%;  animation-delay: 0.4s;  }
+.s6 { width:  9px; height:  9px; top: 44%;  left: 63%;  animation-delay: 1.7s;  }
+.s7 { width:  5px; height:  5px; top: 78%;  left: 46%;  animation-delay: 3.1s;  }
+.s8 { width: 11px; height: 11px; top: 24%;  right: 34%; animation-delay: 2.4s;  }
+
+/* ── Ambient warm glow orb behind the door ────────────────── */
+.door-glow-orb {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width:  clamp(280px, 58vw, 720px);
+  height: clamp(280px, 58vw, 720px);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 248, 200, 0.52) 0%,
+    rgba(255, 225, 130, 0.20) 38%,
+    rgba(201, 168,  76, 0.07) 65%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+  animation: glowPulse 4.5s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.60; transform: translate(-50%, -50%) scale(1);    }
+  50%       { opacity: 1.00; transform: translate(-50%, -50%) scale(1.07); }
 }
 
 
@@ -1163,6 +1314,7 @@ img {
 
   /* Top photo on tablet */
   .door-top-photo-frame { width: 90px; height: 90px; }
+  .door-arch-wrap { width: 88vw; }
 }
 
 /* ── Large phone ─── */
@@ -1174,6 +1326,7 @@ img {
     width:  88vw;
     height: 58vh;
   }
+  .door-arch-wrap { width: 88vw; }
 
   .couple-img-frame {
     width:  140px;
@@ -1189,6 +1342,7 @@ img {
     width:  92vw;
     height: 54vh;
   }
+  .door-arch-wrap { width: 92vw; }
 
   .behind-heading { font-size: 1.6rem; }
 
