@@ -439,7 +439,44 @@
           <p class="behind-ornament">✦ &nbsp; ✦ &nbsp; ✦</p>
 
           <!-- ── Change welcome heading here ── -->
-          <h1 class="behind-heading">Welcome to Our<br />Wedding Invitation</h1>
+          <h1 class="behind-heading">Counting Down<br />To Our Wedding</h1>
+
+          <!-- Countdown Timer -->
+          <div class="countdown-wrap" id="countdownWrap">
+
+            <div class="cd-unit">
+              <div class="cd-ring-wrap">
+                <svg class="cd-svg" viewBox="0 0 120 120" id="ringDays" aria-hidden="true"></svg>
+                <span class="cd-number" id="cdDays">--</span>
+              </div>
+              <span class="cd-label">Days</span>
+            </div>
+
+            <div class="cd-unit">
+              <div class="cd-ring-wrap">
+                <svg class="cd-svg" viewBox="0 0 120 120" id="ringHours" aria-hidden="true"></svg>
+                <span class="cd-number" id="cdHours">--</span>
+              </div>
+              <span class="cd-label">Hours</span>
+            </div>
+
+            <div class="cd-unit">
+              <div class="cd-ring-wrap">
+                <svg class="cd-svg" viewBox="0 0 120 120" id="ringMinutes" aria-hidden="true"></svg>
+                <span class="cd-number" id="cdMinutes">--</span>
+              </div>
+              <span class="cd-label">Minutes</span>
+            </div>
+
+            <div class="cd-unit">
+              <div class="cd-ring-wrap">
+                <svg class="cd-svg" viewBox="0 0 120 120" id="ringSeconds" aria-hidden="true"></svg>
+                <span class="cd-number" id="cdSeconds">--</span>
+              </div>
+              <span class="cd-label">Seconds</span>
+            </div>
+
+          </div><!-- /countdown-wrap -->
 
           <p class="behind-sub">Scroll down to enter</p>
           <div class="behind-arrow" aria-hidden="true">↓</div>
@@ -578,10 +615,19 @@
           <div class="venue-grid">
 
             <!-- ── Change venue name here ── -->
-            <div class="venue-item">
+            <div class="venue-item venue-map-wrap">
               <span class="vi-icon">🏛️</span>
               <p class="vi-label">Venue</p>
-              <p class="vi-value"><a href="https://share.google/LEXRomAXyCHq5Vkwj">Sri Meenakshi Sundareshwarar</a><br />Temple</p>
+              <p class="vi-value">Sri Meenakshi Sundareshwarar<br />Temple</p>
+              <div class="map-popup" role="tooltip" aria-label="Open in Google Maps">
+                <iframe
+                  title="Sri Meenakshi Sundareshwarar Temple map"
+                  src="https://maps.google.com/maps?q=Sri+Meenakshi+Sundareshwarar+Temple+Peelamedu+Coimbatore&output=embed&z=16"
+                  width="220" height="155" style="border:0;border-radius:8px;display:block;"
+                  loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+                <a class="map-directions-btn" href="https://share.google/LEXRomAXyCHq5Vkwj" target="_blank" rel="noopener noreferrer">📍 Get Directions</a>
+              </div>
             </div>
 
             <!-- ── Change date and time here ── -->
@@ -625,10 +671,19 @@
           <div class="venue-grid">
 
             <!-- ── Change venue name here ── -->
-            <div class="venue-item">
+            <div class="venue-item venue-map-wrap">
               <span class="vi-icon">🏛️</span>
               <p class="vi-label">Venue</p>
-              <p class="vi-value"><a href="https://share.google/Riciava0UcklEJfjy">Shree Aksshayam</a><br />Hall</p>
+              <p class="vi-value">Shree Aksshayam<br />Hall</p>
+              <div class="map-popup" role="tooltip" aria-label="Open in Google Maps">
+                <iframe
+                  title="Shree Aksshayam Hall map"
+                  src="https://maps.google.com/maps?q=Shree+Aksshayam+Hall+Peelamedu+Coimbatore&output=embed&z=16"
+                  width="220" height="155" style="border:0;border-radius:8px;display:block;"
+                  loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+                <a class="map-directions-btn" href="https://share.google/Riciava0UcklEJfjy" target="_blank" rel="noopener noreferrer">📍 Get Directions</a>
+              </div>
             </div>
 
             <!-- ── Change reception date and time here ── -->

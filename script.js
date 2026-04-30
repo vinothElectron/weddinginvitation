@@ -247,6 +247,70 @@
   }
 
   /* ───────────────────────────────────────────────────────────
+     COUNTDOWN TIMER
+     Target date : 29 May 2026 (change if needed)
+     ─────────────────────────────────────────────────────────── */
+  var WEDDING  = new Date('2026-05-29T04:30:00');
+  var CD_DOTS  = 40;  /* dots per ring — keep even for symmetry */
+
+  /* Build static dot circles once; update only their fill colour on tick */
+  function initRing(id) {
+    var svg = document.getElementById(id);
+    if (!svg) return;
+    var cx = 60, cy = 60, r = 50, dotR = 2.6;
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < CD_DOTS; i++) {
+      var angle = (i / CD_DOTS) * 2 * Math.PI - Math.PI / 2;
+      var dot   = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      dot.setAttribute('cx', (cx + r * Math.cos(angle)).toFixed(2));
+      dot.setAttribute('cy', (cy + r * Math.sin(angle)).toFixed(2));
+      dot.setAttribute('r',  dotR);
+      dot.setAttribute('fill', 'rgba(201,168,76,0.18)');
+      frag.appendChild(dot);
+    }
+    svg.appendChild(frag);
+  }
+
+  function setRingLit(id, lit) {
+    var svg = document.getElementById(id);
+    if (!svg) return;
+    var dots = svg.querySelectorAll('circle');
+    for (var i = 0; i < dots.length; i++) {
+      dots[i].setAttribute('fill',
+        i < lit ? '#c9a84c' : 'rgba(201,168,76,0.18)');
+    }
+  }
+
+  ['ringDays','ringHours','ringMinutes','ringSeconds'].forEach(initRing);
+
+  function tickCountdown() {
+    var diff    = WEDDING - new Date();
+    var days, hours, minutes, seconds;
+    if (diff <= 0) {
+      days = hours = minutes = seconds = 0;
+    } else {
+      days    = Math.floor(diff / 86400000);
+      hours   = Math.floor((diff % 86400000) / 3600000);
+      minutes = Math.floor((diff % 3600000)  / 60000);
+      seconds = Math.floor((diff % 60000)    / 1000);
+    }
+
+    document.getElementById('cdDays').textContent    = String(days).padStart(2,'0');
+    document.getElementById('cdHours').textContent   = String(hours).padStart(2,'0');
+    document.getElementById('cdMinutes').textContent = String(minutes).padStart(2,'0');
+    document.getElementById('cdSeconds').textContent = String(seconds).padStart(2,'0');
+
+    /* Ring fill: lit dots = proportional to value / max */
+    setRingLit('ringDays',    Math.round(Math.min(days,30) / 30 * CD_DOTS));
+    setRingLit('ringHours',   Math.round(hours   / 24 * CD_DOTS));
+    setRingLit('ringMinutes', Math.round(minutes / 60 * CD_DOTS));
+    setRingLit('ringSeconds', Math.round(seconds / 60 * CD_DOTS));
+  }
+
+  tickCountdown();
+  setInterval(tickCountdown, 1000);
+
+  /* ───────────────────────────────────────────────────────────
      RESIZE HANDLER  (recalculate page index on window resize)
      ─────────────────────────────────────────────────────────── */
   window.addEventListener('resize', function () {

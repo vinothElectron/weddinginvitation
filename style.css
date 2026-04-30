@@ -458,10 +458,67 @@ img {
 /* When container gets .doors-open class (added by JS), reveal text */
 .door-frame.doors-open .behind-ornament,
 .door-frame.doors-open .behind-heading,
+.door-frame.doors-open .countdown-wrap,
 .door-frame.doors-open .behind-sub,
 .door-frame.doors-open .behind-arrow {
   opacity: 1;
   animation-play-state: running;
+}
+
+/* ─────────────────────────────────────────────
+   COUNTDOWN TIMER
+   ───────────────────────────────────────────── */
+.countdown-wrap {
+  display:         flex;
+  align-items:     flex-start;
+  justify-content: center;
+  gap:             clamp(0.7rem, 2.5vw, 1.6rem);
+  margin:          0.5rem 0 0.8rem;
+  flex-wrap:       wrap;
+  opacity:         0;
+  transition:      opacity 0.9s ease 0.9s;
+}
+
+.cd-unit {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            0.3rem;
+}
+
+.cd-ring-wrap {
+  position: relative;
+  width:    76px;
+  height:   76px;
+}
+
+.cd-svg {
+  width:   76px;
+  height:  76px;
+  display: block;
+}
+
+.cd-number {
+  position:  absolute;
+  top:       50%;
+  left:      50%;
+  transform: translate(-50%, -50%);
+  font-family:  'Playfair Display', serif;
+  font-size:    1.3rem;
+  font-weight:  700;
+  color:        var(--text-dk);
+  line-height:  1;
+  pointer-events: none;
+  letter-spacing: -0.02em;
+}
+
+.cd-label {
+  font-family:    'Cormorant Garamond', serif;
+  font-size:      0.62rem;
+  font-weight:    400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color:          var(--text-md);
 }
 
 /* ── Door Panels ────────────────────────────── */
@@ -943,6 +1000,74 @@ img {
 .date-cal-wrap {
   position: relative;
   cursor: default;
+}
+
+/* ──────────────────────────────────────────────────
+   VENUE MAP POPUP  (mirrors .date-cal-wrap / .cal-popup)
+   ────────────────────────────────────────────────── */
+.venue-map-wrap {
+  position: relative;
+  cursor: default;
+}
+
+.map-popup {
+  position:   absolute;
+  bottom:     calc(100% + 14px);
+  left:       50%;
+  transform:  translateX(-50%) translateY(8px);
+  width:      228px;
+  background: linear-gradient(135deg, #fffdf5 0%, #fdf4e0 100%);
+  border:     1.5px solid var(--gold-lt);
+  border-radius: 12px;
+  box-shadow:
+    0 10px 36px rgba(122, 92, 58, 0.22),
+    0 0 0 4px rgba(201, 168, 76, 0.08);
+  padding:    0.6rem 0.6rem 0.55rem;
+  opacity:    0;
+  visibility: hidden;
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0s linear 0.22s;
+  z-index:    600;
+  pointer-events: none;
+  text-align: center;
+}
+
+/* Down-pointing caret */
+.map-popup::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 7px solid transparent;
+  border-top-color: var(--gold-lt);
+}
+
+.venue-map-wrap:hover .map-popup {
+  opacity:    1;
+  visibility: visible;
+  transform:  translateX(-50%) translateY(0);
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0s;
+  pointer-events: auto;
+}
+
+.map-directions-btn {
+  display:     inline-block;
+  margin-top:  0.45rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size:   0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color:       var(--gold-dk);
+  text-decoration: none;
+  border:      1px solid var(--gold-lt);
+  border-radius: 20px;
+  padding:     0.2rem 0.75rem;
+  background:  rgba(201,168,76,0.08);
+  transition:  background 0.18s, color 0.18s;
+}
+.map-directions-btn:hover {
+  background: var(--gold);
+  color:      #fff;
 }
 
 .cal-popup {
