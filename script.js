@@ -223,25 +223,78 @@
   initPetals();
 
   /* ───────────────────────────────────────────────────────────
-     BACKGROUND MUSIC  — starts only on button click
+     BACKGROUND MUSIC
      ─────────────────────────────────────────────────────────── */
   var bgMusic     = document.getElementById('bgMusic');
   var musicToggle = document.getElementById('musicToggle');
   var musicIcon   = document.getElementById('musicIcon');
+  var musicPopup  = document.getElementById('musicPopup');
+  var mpYes       = document.getElementById('mpYes');
+  var mpNo        = document.getElementById('mpNo');
+  var musicStarted = false;
 
+  function startMusic() {
+    if (musicStarted || !bgMusic) return;
+    bgMusic.volume = 0.45;
+    bgMusic.play().then(function () {
+      musicStarted = true;
+      if (musicToggle) {
+        musicToggle.classList.add('playing');
+        musicToggle.setAttribute('aria-label', 'Pause music');
+      }
+      if (musicIcon) musicIcon.innerHTML = '&#10074;&#10074;';
+    }).catch(function () { /* blocked */ });
+  }
+
+  function dismissPopup() {
+    if (!musicPopup) return;
+    musicPopup.classList.add('mp-hide');
+  }
+
+  /* Show popup after a short delay */
+  if (musicPopup) {
+    setTimeout(function () {
+      musicPopup.classList.add('mp-show');
+    }, 1200);
+  }
+
+  if (mpYes) {
+    mpYes.addEventListener('click', function () {
+      startMusic();
+      dismissPopup();
+    });
+  }
+  if (mpNo) {
+    mpNo.addEventListener('click', function () {
+      dismissPopup();
+    });
+  }
+
+  /* Also start on first scroll (silent, no popup needed) */
+  function onFirstScroll() {
+    startMusic();
+    dismissPopup();
+    scrollContainer.removeEventListener('wheel',      onFirstScroll);
+    scrollContainer.removeEventListener('touchstart', onFirstScroll);
+  }
+  scrollContainer.addEventListener('wheel',      onFirstScroll, { once: true, passive: true });
+  scrollContainer.addEventListener('touchstart', onFirstScroll, { once: true, passive: true });
+
+  /* Toggle button */
   if (musicToggle && bgMusic) {
     musicToggle.addEventListener('click', function () {
       if (bgMusic.paused) {
         bgMusic.volume = 0.45;
         bgMusic.play();
+        musicStarted = true;
         musicToggle.classList.add('playing');
         musicToggle.setAttribute('aria-label', 'Pause music');
-        musicIcon.innerHTML = '&#10074;&#10074;';   /* ❚❚ pause */
+        musicIcon.innerHTML = '&#10074;&#10074;';
       } else {
         bgMusic.pause();
         musicToggle.classList.remove('playing');
         musicToggle.setAttribute('aria-label', 'Play music');
-        musicIcon.innerHTML = '&#9654;';            /* ▶ play  */
+        musicIcon.innerHTML = '&#9654;';
       }
     });
   }
@@ -318,5 +371,28 @@
     var vh = window.innerHeight;
     activePage = Math.round(st / vh);
   }, { passive: true });
+
+  /* ───────────────────────────────────────────────────────────
+     VENUE MAP  — click / tap to toggle map popup
+     ─────────────────────────────────────────────────────────── */
+  var mapWraps = document.querySelectorAll('.venue-map-wrap');
+
+  mapWraps.forEach(function (wrap) {
+    wrap.addEventListener('click', function (e) {
+      /* Don't close when clicking the directions link or iframe */
+      if (e.target.closest('.map-directions-btn') || e.target.closest('iframe')) return;
+      var isOpen = wrap.classList.contains('map-open');
+      /* Close all others first */
+      mapWraps.forEach(function (w) { w.classList.remove('map-open'); });
+      if (!isOpen) wrap.classList.add('map-open');
+    });
+  });
+
+  /* Tap anywhere outside to close */
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.venue-map-wrap')) {
+      mapWraps.forEach(function (w) { w.classList.remove('map-open'); });
+    }
+  });
 
 })(); /* end IIFE */

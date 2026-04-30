@@ -977,6 +977,13 @@ img {
   margin-bottom: 0.3rem;
 }
 
+.cal-icon-svg {
+  width:  clamp(1.6rem, 4vw, 2rem);
+  height: clamp(1.6rem, 4vw, 2rem);
+  display: block;
+  margin: 0 auto;
+}
+
 .vi-label {
   font-size: 0.65rem;
   text-transform: uppercase;
@@ -1007,7 +1014,33 @@ img {
    ────────────────────────────────────────────────── */
 .venue-map-wrap {
   position: relative;
-  cursor: default;
+  cursor: pointer;
+}
+
+/* Pulsing hint badge */
+.map-hint {
+  display:        inline-block;
+  margin-top:     0.35rem;
+  font-family:    'Cormorant Garamond', serif;
+  font-size:      0.7rem;
+  font-weight:    600;
+  letter-spacing: 0.06em;
+  color:          #fff;
+  background:     var(--gold);
+  border-radius:  20px;
+  padding:        0.18rem 0.65rem;
+  cursor:         pointer;
+  animation:      map-hint-pulse 2s ease-in-out infinite;
+  user-select:    none;
+}
+@keyframes map-hint-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.55); }
+  55%       { box-shadow: 0 0 0 7px rgba(201,168,76,0); }
+}
+/* Hide hint once map is open */
+.venue-map-wrap.map-open .map-hint {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .map-popup {
@@ -1042,7 +1075,8 @@ img {
   border-top-color: var(--gold-lt);
 }
 
-.venue-map-wrap:hover .map-popup {
+.venue-map-wrap:hover .map-popup,
+.venue-map-wrap.map-open .map-popup {
   opacity:    1;
   visibility: visible;
   transform:  translateX(-50%) translateY(0);
@@ -1533,3 +1567,97 @@ img {
   0%, 100% { box-shadow: 0 0 0 4px rgba(201,168,76,0.35), 0 4px 16px rgba(122,92,58,0.25); }
   50%       { box-shadow: 0 0 0 8px rgba(201,168,76,0.10), 0 4px 20px rgba(122,92,58,0.30); }
 }
+
+/* ─────────────────────────────────────────────
+   MUSIC CONSENT POPUP
+   ───────────────────────────────────────────── */
+.music-popup {
+  position:   fixed;
+  bottom:     4.5rem;
+  right:      1.1rem;
+  z-index:    10000;
+  background: linear-gradient(135deg, #fffdf5 0%, #fdf4e0 100%);
+  border:     1.5px solid var(--gold-lt);
+  border-radius: 14px;
+  box-shadow:
+    0 8px 32px rgba(122,92,58,0.22),
+    0 0 0 4px rgba(201,168,76,0.10);
+  padding:    0.85rem 1rem 0.75rem;
+  text-align: center;
+  min-width:  160px;
+  /* hidden by default */
+  opacity:    0;
+  transform:  translateY(12px);
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
+}
+/* caret pointing down toward the music button */
+.music-popup::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  right: 1rem;
+  border: 7px solid transparent;
+  border-top-color: var(--gold-lt);
+}
+.music-popup.mp-show {
+  opacity:    1;
+  transform:  translateY(0);
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s;
+}
+.music-popup.mp-hide {
+  opacity:    0;
+  transform:  translateY(12px);
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
+}
+.mp-note {
+  display:     block;
+  font-size:   1.4rem;
+  line-height: 1;
+  margin-bottom: 0.3rem;
+  color:       var(--gold);
+  animation:   mp-bounce 1.4s ease-in-out infinite;
+}
+@keyframes mp-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-4px); }
+}
+.mp-msg {
+  font-family:    'Cormorant Garamond', serif;
+  font-size:      0.82rem;
+  font-weight:    600;
+  color:          var(--text-dk);
+  letter-spacing: 0.04em;
+  margin-bottom:  0.55rem;
+}
+.mp-btns {
+  display: flex;
+  gap:     0.5rem;
+  justify-content: center;
+}
+.mp-btn {
+  font-family:    'Cormorant Garamond', serif;
+  font-size:      0.78rem;
+  font-weight:    600;
+  letter-spacing: 0.05em;
+  border-radius:  20px;
+  padding:        0.22rem 0.8rem;
+  cursor:         pointer;
+  transition:     background 0.18s, color 0.18s;
+  border:         1.5px solid var(--gold);
+}
+.mp-btn-yes {
+  background: var(--gold);
+  color:      #fff;
+}
+.mp-btn-yes:hover { background: var(--gold-dk); border-color: var(--gold-dk); }
+.mp-btn-no  {
+  background: transparent;
+  color:      var(--gold-dk);
+}
+.mp-btn-no:hover  { background: var(--cream-dk); }

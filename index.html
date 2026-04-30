@@ -576,7 +576,7 @@
             <h3 class="person-name">Vinoth</h3>
             <p class="person-parents">
               Son of<br />
-              <strong>Mr. PanneerSelvam (Late)</strong><br />
+              <strong>Mr. Panneer Selvam (Late)</strong><br />
               &amp; <strong>Mrs. Sudha</strong>
             </p>
           </div>
@@ -619,6 +619,7 @@
               <span class="vi-icon">🏛️</span>
               <p class="vi-label">Venue</p>
               <p class="vi-value">Sri Meenakshi Sundareshwarar<br />Temple</p>
+              <span class="map-hint" aria-label="Tap to view on map">📍 View Map</span>
               <div class="map-popup" role="tooltip" aria-label="Open in Google Maps">
                 <iframe
                   title="Sri Meenakshi Sundareshwarar Temple map"
@@ -632,7 +633,17 @@
 
             <!-- ── Change date and time here ── -->
             <div class="venue-item date-cal-wrap">
-              <span class="vi-icon">📅</span>
+              <span class="vi-icon">
+                <svg class="cal-icon-svg" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect x="1" y="5" width="34" height="30" rx="4" fill="#fffdf5" stroke="#c9a84c" stroke-width="2"/>
+                  <rect x="1" y="5" width="34" height="10" rx="4" fill="#c9a84c"/>
+                  <rect x="1" y="11" width="34" height="4" fill="#c9a84c"/>
+                  <rect x="8" y="1" width="4" height="8" rx="2" fill="#9a7a2a"/>
+                  <rect x="24" y="1" width="4" height="8" rx="2" fill="#9a7a2a"/>
+                  <text x="18" y="13" text-anchor="middle" font-family="Arial,sans-serif" font-size="5.5" font-weight="700" fill="#fff" letter-spacing="0.5">MAY</text>
+                  <text x="18" y="30" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#7a5010">29</text>
+                </svg>
+              </span>
               <p class="vi-label">Date &amp; Time</p>
               <p class="vi-value">Friday, 29th May 2026<br />Marriage: 4:30 AM to 6:00 AM</p>
               <div class="cal-popup" role="tooltip" aria-label="May 2026 calendar">
@@ -675,6 +686,7 @@
               <span class="vi-icon">🏛️</span>
               <p class="vi-label">Venue</p>
               <p class="vi-value">Shree Aksshayam<br />Hall</p>
+              <span class="map-hint" aria-label="Tap to view on map">📍 View Map</span>
               <div class="map-popup" role="tooltip" aria-label="Open in Google Maps">
                 <iframe
                   title="Shree Aksshayam Hall map"
@@ -688,7 +700,17 @@
 
             <!-- ── Change reception date and time here ── -->
             <div class="venue-item date-cal-wrap">
-              <span class="vi-icon">📅</span>
+              <span class="vi-icon">
+                <svg class="cal-icon-svg" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect x="1" y="5" width="34" height="30" rx="4" fill="#fffdf5" stroke="#c9a84c" stroke-width="2"/>
+                  <rect x="1" y="5" width="34" height="10" rx="4" fill="#c9a84c"/>
+                  <rect x="1" y="11" width="34" height="4" fill="#c9a84c"/>
+                  <rect x="8" y="1" width="4" height="8" rx="2" fill="#9a7a2a"/>
+                  <rect x="24" y="1" width="4" height="8" rx="2" fill="#9a7a2a"/>
+                  <text x="18" y="13" text-anchor="middle" font-family="Arial,sans-serif" font-size="5.5" font-weight="700" fill="#fff" letter-spacing="0.5">MAY</text>
+                  <text x="18" y="30" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#7a5010">29</text>
+                </svg>
+              </span>
               <p class="vi-label">Date &amp; Time</p>
               <p class="vi-value">Friday, 29th May 2026<br /> Reception: 8:00 AM to 11:30 AM</p>
               <div class="cal-popup" role="tooltip" aria-label="May 2026 calendar">
@@ -772,6 +794,16 @@
   <audio id="bgMusic" loop preload="auto">
     <source src="Mahaganapathim%20(PenduJatt.Com.Se).mp3" type="audio/mpeg" />
   </audio>
+
+  <!-- Music consent popup -->
+  <div id="musicPopup" class="music-popup" role="dialog" aria-label="Play background music?">
+    <span class="mp-note">&#9835;</span>
+    <p class="mp-msg">Play background music?</p>
+    <div class="mp-btns">
+      <button id="mpYes" class="mp-btn mp-btn-yes">Play &#9654;</button>
+      <button id="mpNo"  class="mp-btn mp-btn-no">Skip</button>
+    </div>
+  </div>
 
   <!-- Floating music button -->
   <button id="musicToggle" class="music-btn" aria-label="Play music">
